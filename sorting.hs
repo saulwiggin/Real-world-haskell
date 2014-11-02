@@ -1,6 +1,5 @@
 -- file: ch24/Sorting.hs
-sort :: (Ord a) => [a] -> [a]
-sort (x:xs) = lesser ++ x:greater
-    where lesser  = sort [y | y <- xs, y <  x]
-          greater = sort [y | y <- xs, y >= x]
-sort _ = []
+force :: [a] -> ()
+force xs = go xs `pseq` ()
+    where go (_:xs) = go xs
+          go [] = 1
